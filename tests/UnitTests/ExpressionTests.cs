@@ -56,4 +56,27 @@ public class ExpressionTests
         // assert
         result.Should().Be(0);
     }
+
+    [Theory]
+    [InlineData("1 + 1", 2)]
+    [InlineData("10 + 10", 20)]
+    [InlineData("100 + 1000", 1100)]
+    [InlineData("1 - 1", 0)]
+    [InlineData("10 - 1", 9)]
+    [InlineData("100 - 1000", -900)]
+    [InlineData("90 * 1", 90)]
+    [InlineData("10 * 1", 10)]
+    [InlineData("21 * 10", 210)]
+    public void Model_ExpressionWith2NumbersAndOperator_ReturnsResult(string expressionAsString, double expectedResult)
+    {
+        // arrange
+        var expression = new Expression(expressionAsString);
+        
+        // act
+        var root = expression.Model();
+        var result = root.Evaluate();
+        
+        // assert
+        result.Should().Be(expectedResult);
+    }
 }
