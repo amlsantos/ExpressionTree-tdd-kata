@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using Domain;
 using FluentAssertions;
 using Xunit;
@@ -38,5 +37,20 @@ public class ExpressionTests
 
         // assert
         result.Should().Be(expectedOutput);
+    }
+
+    [Theory]
+    [InlineData("+")]
+    public void Model_ExpressionWithOperator_Returns0(string operatorAsString)
+    {
+        // arrange
+        var expression = new Expression(operatorAsString);
+
+        // act
+        var root = expression.Model();
+        var result = root.Evaluate();
+
+        // assert
+        result.Should().Be(0);
     }
 }
