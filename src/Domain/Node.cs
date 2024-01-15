@@ -29,10 +29,21 @@ public class Node
             case "*":
                 return Left.Evaluate() * Right.Evaluate();
             case "/":
+            {
+                if (Left.IsZero() || Right.IsZero())
+                    throw new InvalidOperationException();
+                
                 return Left.Evaluate() / Right.Evaluate();
+            }
+                
             default:
                 return 0;
         }
+    }
+
+    private bool IsZero()
+    {
+        return IsNumber() && double.Parse(_value) == 0;
     }
 
     private bool IsLeaf() => (Left is null && Right is null);
