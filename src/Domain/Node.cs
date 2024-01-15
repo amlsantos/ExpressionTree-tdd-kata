@@ -11,9 +11,20 @@ public class Node
     {
         if (IsEmpty())
             return 0;
-            
+
+        if (IsOperator())
+            return 0;
+        
         // convert char to number
         return double.Parse(_value);
+    }
+
+    private bool IsOperator()
+    {
+        if (_value == "+")
+            return true;
+
+        return false;
     }
 
     private bool IsEmpty()
