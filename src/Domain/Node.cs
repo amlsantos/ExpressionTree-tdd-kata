@@ -2,7 +2,9 @@
 
 public class Node
 {
+    public Node Left { get; set; }
     private string? _value;
+    public Node Right { get; set; }
 
     public Node() { }
     public Node(string value) : this() => _value = value;
@@ -12,14 +14,30 @@ public class Node
         if (IsEmpty())
             return 0;
 
-        if (IsOperator())
+        if (IsLeaf() && !IsNumber())
             return 0;
         
-        // convert char to number
-        return double.Parse(_value);
+        if (IsNumber())
+            return double.Parse(_value);
+        
+        switch (_value)
+        {
+            case "+":
+                return Left.Evaluate() + Right.Evaluate();
+            case "-":
+                return Left.Evaluate() - Right.Evaluate();
+            case "*":
+                return Left.Evaluate() * Right.Evaluate();
+            case "/":
+                return Left.Evaluate() / Right.Evaluate();
+            default:
+                return 0;
+        }
     }
 
-    private bool IsOperator()
+    private bool IsLeaf() => (Left is null && Right is null);
+
+    private bool IsNumber()
     {
         switch (_value)
         {
@@ -27,9 +45,9 @@ public class Node
             case "-":
             case "*":
             case "/":
-                return true;
-            default:
                 return false;
+            default:
+                return true;
         }
     }
 
