@@ -2,14 +2,11 @@
 
 public class Node
 {
-    public Node Left { get; set; }
+    public Node? Left { get; set; }
     private string? _value;
-    public Node Right { get; set; }
+    public Node? Right { get; set; }
 
-    public Node()
-    {
-    }
-
+    public Node() { }
     public Node(string value) : this() => _value = value;
 
     public double Evaluate()
@@ -39,35 +36,12 @@ public class Node
         }
     }
 
-    private double Division()
-    {
-        if (Left.IsZero() || Right.IsZero())
-            throw new InvalidOperationException();
-
-        return Left.Evaluate() / Right.Evaluate();
-    }
-
-    private double Multiplication()
-    {
-        return Left.Evaluate() * Right.Evaluate();
-    }
-
-    private double Subtraction()
-    {
-        return Left.Evaluate() - Right.Evaluate();
-    }
-
-    private double Sum()
-    {
-        return Left.Evaluate() + Right.Evaluate();
-    }
-
-    private bool IsZero()
-    {
-        return IsNumber() && double.Parse(_value) == 0;
-    }
-
     private bool IsLeaf() => (Left is null && Right is null);
+
+    private bool IsEmpty()
+    {
+        return string.IsNullOrEmpty(_value);
+    }
 
     private bool IsNumber()
     {
@@ -83,8 +57,31 @@ public class Node
         }
     }
 
-    private bool IsEmpty()
+    private double Sum()
     {
-        return string.IsNullOrEmpty(_value);
+        return Left.Evaluate() + Right.Evaluate();
+    }
+
+    private double Subtraction()
+    {
+        return Left.Evaluate() - Right.Evaluate();
+    }
+
+    private double Multiplication()
+    {
+        return Left.Evaluate() * Right.Evaluate();
+    }
+
+    private double Division()
+    {
+        if (Left.IsZero() || Right.IsZero())
+            throw new InvalidOperationException();
+
+        return Left.Evaluate() / Right.Evaluate();
+    }
+
+    private bool IsZero()
+    {
+        return IsNumber() && double.Parse(_value) == 0;
     }
 }
