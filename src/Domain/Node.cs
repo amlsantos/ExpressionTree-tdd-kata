@@ -9,6 +9,17 @@ public class Node
 
     public double Evaluate()
     {
-        return 0;
+        if (IsEmpty())
+            return 0;
+            
+        // convert char to number
+        return double.Parse(_value.Value.ToString());
+        
+        return (double)_value.Value;
+    }
+
+    private bool IsEmpty()
+    {
+        return !_value.HasValue;
     }
 }

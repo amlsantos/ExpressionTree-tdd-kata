@@ -10,8 +10,7 @@ public class Expression
         if (string.IsNullOrEmpty(_expression))
             return new Node();
 
-        // do something with expression
-        var rootNode = new Node();
-        return rootNode;
+        var value = _expression[0];
+        return new Node(value);
     }
 }

@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Domain;
 using FluentAssertions;
 using Xunit;
@@ -21,11 +22,14 @@ public class ExpressionTests
         result.Should().Be(0);
     }
     
-    [Fact]
-    public void Model_ExpressionWithNumber_ReturnsNumber()
+    [Theory]
+    [InlineData("1", 1)]
+    [InlineData("2", 2)]
+    [InlineData("10", 10)]
+    [InlineData("100", 100)]
+    public void Model_ExpressionWithNumber_ReturnsNumber(string numberAsString, double expectedOutput)
     {
         // arrange
-        var numberAsString = "1";
         var expression = new Expression(numberAsString);
 
         // act
@@ -33,6 +37,6 @@ public class ExpressionTests
         var result = root.Evaluate();
 
         // assert
-        result.Should().Be(1);
+        result.Should().Be(expectedOutput);
     }
 }
