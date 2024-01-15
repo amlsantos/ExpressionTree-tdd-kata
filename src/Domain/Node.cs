@@ -2,10 +2,10 @@
 
 public class Node
 {
-    private char? _value;
+    private string? _value;
 
     public Node() { }
-    public Node(char value) : this() => _value = value;
+    public Node(string value) : this() => _value = value;
 
     public double Evaluate()
     {
@@ -13,13 +13,11 @@ public class Node
             return 0;
             
         // convert char to number
-        return double.Parse(_value.Value.ToString());
-        
-        return (double)_value.Value;
+        return double.Parse(_value);
     }
 
     private bool IsEmpty()
     {
-        return !_value.HasValue;
+        return string.IsNullOrEmpty(_value);
     }
 }

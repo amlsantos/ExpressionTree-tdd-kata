@@ -10,7 +10,10 @@ public class Expression
         if (string.IsNullOrEmpty(_expression))
             return new Node();
 
-        var value = _expression[0];
+        var space = " ";
+        var values = _expression.Split(space);
+        
+        var value = values[0];
         return new Node(value);
     }
 }
