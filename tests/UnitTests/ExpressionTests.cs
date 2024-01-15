@@ -41,6 +41,9 @@ public class ExpressionTests
 
     [Theory]
     [InlineData("+")]
+    [InlineData("-")]
+    [InlineData("*")]
+    [InlineData("/")]
     public void Model_ExpressionWithOperator_Returns0(string operatorAsString)
     {
         // arrange
