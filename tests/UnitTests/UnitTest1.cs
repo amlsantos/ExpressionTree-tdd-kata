@@ -9,8 +9,8 @@ public class UnitTest1
     public void Model_EmptyExpression_Returns0()
     {
         // arrange
-        var emptyExpression = string.Empty;
-        var expression = new Expression();
+        var empty = string.Empty;
+        var expression = new Expression(empty);
 
         // act
         var root = expression.Model();
@@ -23,15 +23,27 @@ public class UnitTest1
 
 public class Expression
 {
+    private readonly string _expression;
+    public Expression(string expression) => _expression = expression;
+
     public Node Model()
     {
-        var node = new Node();
-        return node;
+        if (string.IsNullOrEmpty(_expression))
+            return new Node();
+
+        // do something with expression
+        var rootNode = new Node();
+        return rootNode;
     }
 }
 
 public class Node
 {
+    private char? _value;
+
+    public Node() { }
+    public Node(char value) : this() => _value = value;
+
     public double Evaluate()
     {
         return 0;
