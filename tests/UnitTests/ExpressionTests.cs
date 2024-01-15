@@ -20,4 +20,19 @@ public class ExpressionTests
         // assert
         result.Should().Be(0);
     }
+    
+    [Fact]
+    public void Model_ExpressionWithNumber_ReturnsNumber()
+    {
+        // arrange
+        var numberAsString = "1";
+        var expression = new Expression(numberAsString);
+
+        // act
+        var root = expression.Model();
+        var result = root.Evaluate();
+
+        // assert
+        result.Should().Be(1);
+    }
 }
