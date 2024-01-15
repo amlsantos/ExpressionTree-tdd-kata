@@ -84,4 +84,21 @@ public class ExpressionTests
         // assert
         result.Should().Be(expectedResult);
     }
+
+    [Theory]
+    [InlineData("21 / 0")]
+    [InlineData("0 / 0")]
+    [InlineData("0 / 1")]
+    public void Model_ExpressionWithInvalidDivision_ThrowsException(string invalidExpression)
+    {
+        // arrange
+        var expression = new Expression(invalidExpression);
+        
+        // act
+        var root = expression.Model();
+        var exception = () => root.Evaluate();
+        
+        // assert
+        exception.Should().Throw<InvalidOperationException>();
+    }
 }
