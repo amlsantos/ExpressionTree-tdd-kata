@@ -6,7 +6,10 @@ public class Node
     private string? _value;
     public Node Right { get; set; }
 
-    public Node() { }
+    public Node()
+    {
+    }
+
     public Node(string value) : this() => _value = value;
 
     public double Evaluate()
@@ -16,29 +19,47 @@ public class Node
 
         if (IsLeaf() && !IsNumber())
             return 0;
-        
+
         if (IsNumber())
             return double.Parse(_value);
-        
+
         switch (_value)
         {
             case "+":
-                return Left.Evaluate() + Right.Evaluate();
+                return Sum();
             case "-":
-                return Left.Evaluate() - Right.Evaluate();
+                return Subtraction();
             case "*":
-                return Left.Evaluate() * Right.Evaluate();
+                return Multiplication();
             case "/":
-            {
-                if (Left.IsZero() || Right.IsZero())
-                    throw new InvalidOperationException();
-                
-                return Left.Evaluate() / Right.Evaluate();
-            }
-                
+                return Division();
+
             default:
                 return 0;
         }
+    }
+
+    private double Division()
+    {
+        if (Left.IsZero() || Right.IsZero())
+            throw new InvalidOperationException();
+
+        return Left.Evaluate() / Right.Evaluate();
+    }
+
+    private double Multiplication()
+    {
+        return Left.Evaluate() * Right.Evaluate();
+    }
+
+    private double Subtraction()
+    {
+        return Left.Evaluate() - Right.Evaluate();
+    }
+
+    private double Sum()
+    {
+        return Left.Evaluate() + Right.Evaluate();
     }
 
     private bool IsZero()
