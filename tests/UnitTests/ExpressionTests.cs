@@ -67,6 +67,11 @@ public class ExpressionTests
     [InlineData("90 * 1", 90)]
     [InlineData("10 * 1", 10)]
     [InlineData("21 * 10", 210)]
+    [InlineData("90 / 1", 90)]
+    [InlineData("10 / 1", 10)]
+    [InlineData("21 / 10", 2.1)]
+    [InlineData("50 / 10", 5)]
+    [InlineData("15 / 5", 3)]
     public void Model_ExpressionWith2NumbersAndOperator_ReturnsResult(string expressionAsString, double expectedResult)
     {
         // arrange
