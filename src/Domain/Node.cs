@@ -21,16 +21,16 @@ public class Node
 
     private bool IsOperator()
     {
-        if (_value == "+")
-            return true;
-        if (_value == "-")
-            return true;
-        if (_value == "*")
-            return true;
-        if (_value == "/")
-            return true;
-
-        return false;
+        switch (_value)
+        {
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+                return true;
+            default:
+                return false;
+        }
     }
 
     private bool IsEmpty()
