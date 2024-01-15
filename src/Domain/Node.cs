@@ -23,6 +23,12 @@ public class Node
     {
         if (_value == "+")
             return true;
+        if (_value == "-")
+            return true;
+        if (_value == "*")
+            return true;
+        if (_value == "/")
+            return true;
 
         return false;
     }
