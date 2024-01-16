@@ -9,28 +9,31 @@ public class Expression
     {
         if (string.IsNullOrEmpty(_expression))
             return new Node();
-
+        
         var space = " ";
-        var values = _expression.Split(space);
-        if (values.Length == 1)
-        {
-            var value = values[0];
-            return new Node(value);
-        }
+        var expressionValues = _expression.Split(space);
+        if (expressionValues.Length == 1)
+            return new Node(expressionValues[0]);
         
         // valid expression = 3 values
-        if (!IsValid(values))
+        if (!IsValid(expressionValues))
             throw new InvalidOperationException();
 
-        var left = new Node(values[0]);
-        var root = new Node(values[1]);
-        var right = new Node(values[2]);
+        return BuildSimpleTree(expressionValues);
+    }
 
+    private bool IsValid(string[] expression) => expression.Length >= 3;
+
+    private static Node BuildSimpleTree(IReadOnlyList<string> values)
+    {
+        var root = new Node(values[1]);
+        
+        var left = new Node(values[0]);
         root.Left = left;
+
+        var right = new Node(values[2]);
         root.Right = right;
 
         return root;
     }
-
-    private bool IsValid(string[] expression) => expression.Length >= 3;
 }
