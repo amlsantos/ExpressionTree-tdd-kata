@@ -8,12 +8,12 @@ public class ExpressionTree
     public Node Model()
     {
         if (string.IsNullOrEmpty(_expression))
-            return new Node();
+            return Node.Create("");
         
         var space = " ";
         var expressionValues = _expression.Split(space);
         if (expressionValues.Length == 1)
-            return new Node(expressionValues[0]);
+            return Node.Create(expressionValues[0]);
         
         // valid expression = 3 values
         if (!IsValid(expressionValues))
@@ -26,12 +26,12 @@ public class ExpressionTree
 
     private static Node BuildSimpleTree(IReadOnlyList<string> values)
     {
-        var root = new Node(values[1]);
+        var root = Node.Create(values[1]);
         
-        var left = new Node(values[0]);
+        var left = Node.Create(values[0]);
         root.Left = left;
 
-        var right = new Node(values[2]);
+        var right = Node.Create(values[2]);
         root.Right = right;
 
         return root;

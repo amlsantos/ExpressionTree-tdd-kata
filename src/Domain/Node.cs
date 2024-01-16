@@ -6,9 +6,14 @@ public class Node
     private string? _value;
     public Node? Right { get; set; }
 
-    public Node() { }
+    private Node() { }
     public Node(string value) : this() => _value = value;
 
+    public static Node Create(string value)
+    {
+        return new Node(value);
+    }
+    
     public double Evaluate()
     {
         if (IsEmpty())
