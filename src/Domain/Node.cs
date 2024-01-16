@@ -6,19 +6,25 @@ public class Node
     private string? _value;
     public Node? Right { get; set; }
 
-    private Node() { }
-    public Node(string value) : this() => _value = value;
+    protected Node() { }
+    protected Node(string value) : this() => _value = value;
 
     public static Node Create(string value)
     {
+        if (IsEmpty(value))
+            return new EmptyNode();
+        
         return new Node(value);
     }
-    
-    public double Evaluate()
-    {
-        if (IsEmpty())
-            return 0;
 
+    private static bool IsEmpty(string value)
+    {
+        return string.IsNullOrEmpty(value);
+    }
+
+    public virtual double Evaluate()
+    {
+        
         if (IsLeaf() && !IsNumber())
             return 0;
 
@@ -42,11 +48,6 @@ public class Node
     }
 
     private bool IsLeaf() => (Left is null && Right is null);
-
-    private bool IsEmpty()
-    {
-        return string.IsNullOrEmpty(_value);
-    }
 
     private bool IsNumber()
     {
@@ -88,5 +89,15 @@ public class Node
     private bool IsZero()
     {
         return IsNumber() && double.Parse(_value) == 0;
+    }
+}
+
+public class EmptyNode : Node
+{
+    public EmptyNode() { }
+
+    public override double Evaluate()
+    {
+        return 0;
     }
 }
