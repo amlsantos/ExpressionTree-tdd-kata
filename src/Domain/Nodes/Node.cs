@@ -1,4 +1,4 @@
-﻿namespace Domain;
+﻿namespace Domain.Nodes;
 
 public class Node
 {
@@ -106,14 +106,4 @@ public class Node
     {
         return IsNumber() && double.Parse(_value) == 0;
     }
-}
-
-public class EmptyNode : Node
-{
-    public override double Evaluate() => 0;
-}
-
-public class LeafNode : Node
-{
-    public override double Evaluate() => 0;
 }

@@ -1,4 +1,6 @@
-﻿namespace Domain;
+﻿using Domain.Nodes;
+
+namespace Domain;
 
 public class ExpressionTree
 {
