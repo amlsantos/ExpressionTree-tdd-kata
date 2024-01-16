@@ -2,15 +2,15 @@
 
 public class Node
 {
-    private readonly string? _value;
-    private readonly Node? _left;
-    private readonly Node? _right;
+    protected readonly string? Value;
+    protected readonly Node? _left;
+    protected readonly Node? _right;
 
     protected Node() { }
-    protected Node(string value) => _value = value;
+    protected Node(string value) => Value = value;
     protected Node(string value, Node left, Node right) : this()
     {
-        _value = value;
+        Value = value;
         _left = left;
         _right = right;
     }
@@ -47,7 +47,7 @@ public class Node
 
     public virtual double Evaluate()
     {
-        switch (_value)
+        switch (Value)
         {
             case "+":
                 return Sum();
@@ -65,7 +65,7 @@ public class Node
 
     private bool IsNumber()
     {
-        switch (_value)
+        switch (Value)
         {
             case "+":
             case "-":
@@ -102,6 +102,29 @@ public class Node
 
     private bool IsZero()
     {
-        return IsNumber() && double.Parse(_value) == 0;
+        return IsNumber() && double.Parse(Value) == 0;
     }
 }
+
+// public class OperationNode : Node
+// {
+//     public OperationNode(string value, Node left, Node? right) : base(value, left, right) { }
+//
+//     public override double Evaluate()
+//     {
+//         switch (_value)
+//         {
+//             case "+":
+//                 return Sum();
+//             case "-":
+//                 return Subtraction();
+//             case "*":
+//                 return Multiplication();
+//             case "/":
+//                 return Division();
+//
+//             default:
+//                 return 0;
+//         }
+//     }
+// }

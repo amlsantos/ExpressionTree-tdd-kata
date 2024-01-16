@@ -2,8 +2,7 @@
 
 public class ValueNode : Node
 {
-    private readonly double _value;
-    public ValueNode(string value) : base(value) => _value = double.Parse(value);
+    public ValueNode(string value) : base(value) { }
 
-    public override double Evaluate() => _value;
+    public override double Evaluate() => double.Parse(Value);
 }
