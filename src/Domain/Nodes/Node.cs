@@ -23,8 +23,8 @@ public class Node
             return new LeafNode();
         if (IsNumber(value))
             return new ValueNode(value);
-        
-        return new Node(value, left, right);
+
+        return new OperationNode(value, left, right);
     }
 
     private static bool IsEmpty(string input) => string.IsNullOrEmpty(input);
@@ -47,23 +47,12 @@ public class Node
 
     public virtual double Evaluate()
     {
-        switch (Value)
-        {
-            case "+":
-                return Sum();
-            case "-":
-                return Subtraction();
-            case "*":
-                return Multiplication();
-            case "/":
-                return Division();
-
-            default:
-                return 0;
-        }
+        return 0;
     }
+    
+    protected internal bool IsZero() => IsNumber() && double.Parse(Value) == 0;
 
-    private bool IsNumber()
+    protected bool IsNumber()
     {
         switch (Value)
         {
@@ -76,55 +65,4 @@ public class Node
                 return true;
         }
     }
-
-    private double Sum()
-    {
-        return _left.Evaluate() + _right.Evaluate();
-    }
-
-    private double Subtraction()
-    {
-        return _left.Evaluate() - _right.Evaluate();
-    }
-
-    private double Multiplication()
-    {
-        return _left.Evaluate() * _right.Evaluate();
-    }
-
-    private double Division()
-    {
-        if (_left.IsZero() || _right.IsZero())
-            throw new InvalidOperationException();
-
-        return _left.Evaluate() / _right.Evaluate();
-    }
-
-    private bool IsZero()
-    {
-        return IsNumber() && double.Parse(Value) == 0;
-    }
 }
-
-// public class OperationNode : Node
-// {
-//     public OperationNode(string value, Node left, Node? right) : base(value, left, right) { }
-//
-//     public override double Evaluate()
-//     {
-//         switch (_value)
-//         {
-//             case "+":
-//                 return Sum();
-//             case "-":
-//                 return Subtraction();
-//             case "*":
-//                 return Multiplication();
-//             case "/":
-//                 return Division();
-//
-//             default:
-//                 return 0;
-//         }
-//     }
-// }
