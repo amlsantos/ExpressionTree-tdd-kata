@@ -26,13 +26,10 @@ public class ExpressionTree
 
     private static Node BuildSimpleTree(IReadOnlyList<string> values)
     {
-        var root = Node.Create(values[1]);
-        
         var left = Node.Create(values[0]);
-        root.Left = left;
-
         var right = Node.Create(values[2]);
-        root.Right = right;
+        
+        var root = Node.Create(values[1], left, right);
 
         return root;
     }

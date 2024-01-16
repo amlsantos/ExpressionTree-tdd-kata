@@ -2,32 +2,48 @@
 
 public class Node
 {
-    public Node? Left { get; set; }
-    private string? _value;
-    public Node? Right { get; set; }
+    private Node? Left { get; }
+    private readonly string? _value;
+    private Node? Right { get; }
 
     protected Node() { }
-    protected Node(string value) : this() => _value = value;
+    protected Node(string value, Node left, Node right) : this()
+    {
+        _value = value;
+        Left = left;
+        Right = right;
+    }
 
-    public static Node Create(string value)
+    public static Node Create(string value, Node? left = null, Node? right = null)
     {
         if (IsEmpty(value))
             return new EmptyNode();
+        if (IsLeaf(left, right) && !IsNumber(value))
+            return new LeafNode();
         
-        return new Node(value);
+        return new Node(value, left, right);
     }
 
-    private static bool IsEmpty(string value)
+    private static bool IsEmpty(string input) => string.IsNullOrEmpty(input);
+
+    private static bool IsLeaf(Node? left, Node? right) => left is null && right is null;
+
+    private static bool IsNumber(string input)
     {
-        return string.IsNullOrEmpty(value);
+        switch (input)
+        {
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+                return false;
+            default:
+                return true;
+        }
     }
 
     public virtual double Evaluate()
     {
-        
-        if (IsLeaf() && !IsNumber())
-            return 0;
-
         if (IsNumber())
             return double.Parse(_value);
 
@@ -94,10 +110,10 @@ public class Node
 
 public class EmptyNode : Node
 {
-    public EmptyNode() { }
+    public override double Evaluate() => 0;
+}
 
-    public override double Evaluate()
-    {
-        return 0;
-    }
+public class LeafNode : Node
+{
+    public override double Evaluate() => 0;
 }
