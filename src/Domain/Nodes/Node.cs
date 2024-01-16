@@ -2,16 +2,17 @@
 
 public class Node
 {
-    private Node? Left { get; }
     private readonly string? _value;
-    private Node? Right { get; }
+    private readonly Node? _left;
+    private readonly Node? _right;
 
     protected Node() { }
+    protected Node(string value) => _value = value;
     protected Node(string value, Node left, Node right) : this()
     {
         _value = value;
-        Left = left;
-        Right = right;
+        _left = left;
+        _right = right;
     }
 
     public static Node Create(string value, Node? left = null, Node? right = null)
@@ -20,6 +21,8 @@ public class Node
             return new EmptyNode();
         if (IsLeaf(left, right) && !IsNumber(value))
             return new LeafNode();
+        if (IsNumber(value))
+            return new ValueNode(value);
         
         return new Node(value, left, right);
     }
@@ -44,9 +47,6 @@ public class Node
 
     public virtual double Evaluate()
     {
-        if (IsNumber())
-            return double.Parse(_value);
-
         switch (_value)
         {
             case "+":
@@ -62,8 +62,6 @@ public class Node
                 return 0;
         }
     }
-
-    private bool IsLeaf() => (Left is null && Right is null);
 
     private bool IsNumber()
     {
@@ -81,25 +79,25 @@ public class Node
 
     private double Sum()
     {
-        return Left.Evaluate() + Right.Evaluate();
+        return _left.Evaluate() + _right.Evaluate();
     }
 
     private double Subtraction()
     {
-        return Left.Evaluate() - Right.Evaluate();
+        return _left.Evaluate() - _right.Evaluate();
     }
 
     private double Multiplication()
     {
-        return Left.Evaluate() * Right.Evaluate();
+        return _left.Evaluate() * _right.Evaluate();
     }
 
     private double Division()
     {
-        if (Left.IsZero() || Right.IsZero())
+        if (_left.IsZero() || _right.IsZero())
             throw new InvalidOperationException();
 
-        return Left.Evaluate() / Right.Evaluate();
+        return _left.Evaluate() / _right.Evaluate();
     }
 
     private bool IsZero()
