@@ -4,14 +4,14 @@ using Xunit;
 
 namespace UnitTests;
 
-public class ExpressionTests
+public class ExpressionTreeTests
 {
     [Fact]
     public void Model_EmptyExpression_Returns0()
     {
         // arrange
         var empty = string.Empty;
-        var expression = new Expression(empty);
+        var expression = new ExpressionTree(empty);
 
         // act
         var root = expression.Model();
@@ -29,7 +29,7 @@ public class ExpressionTests
     public void Model_ExpressionWithNumber_ReturnsNumber(string numberAsString, double expectedOutput)
     {
         // arrange
-        var expression = new Expression(numberAsString);
+        var expression = new ExpressionTree(numberAsString);
 
         // act
         var root = expression.Model();
@@ -47,7 +47,7 @@ public class ExpressionTests
     public void Model_ExpressionWithOperator_Returns0(string operatorAsString)
     {
         // arrange
-        var expression = new Expression(operatorAsString);
+        var expression = new ExpressionTree(operatorAsString);
 
         // act
         var root = expression.Model();
@@ -75,7 +75,7 @@ public class ExpressionTests
     public void Model_ExpressionWith2NumbersAndOperator_ReturnsResult(string expressionAsString, double expectedResult)
     {
         // arrange
-        var expression = new Expression(expressionAsString);
+        var expression = new ExpressionTree(expressionAsString);
         
         // act
         var root = expression.Model();
@@ -92,7 +92,7 @@ public class ExpressionTests
     public void Model_ExpressionWithInvalidDivision_ThrowsException(string invalidExpression)
     {
         // arrange
-        var expression = new Expression(invalidExpression);
+        var expression = new ExpressionTree(invalidExpression);
         
         // act
         var root = expression.Model();

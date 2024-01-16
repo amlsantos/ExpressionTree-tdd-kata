@@ -1,9 +1,9 @@
 ﻿namespace Domain;
 
-public class Expression
+public class ExpressionTree
 {
     private readonly string _expression;
-    public Expression(string expression) => _expression = expression;
+    public ExpressionTree(string expression) => _expression = expression;
 
     public Node Model()
     {
