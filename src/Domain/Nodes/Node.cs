@@ -1,20 +1,7 @@
 ﻿namespace Domain.Nodes;
 
-public class Node
+public abstract class Node
 {
-    protected readonly string? Value;
-    protected readonly Node? _left;
-    protected readonly Node? _right;
-
-    protected Node() { }
-    protected Node(string value) => Value = value;
-    protected Node(string value, Node left, Node right) : this()
-    {
-        Value = value;
-        _left = left;
-        _right = right;
-    }
-
     public static Node Create(string value, Node? left = null, Node? right = null)
     {
         if (IsEmpty(value))
@@ -45,24 +32,5 @@ public class Node
         }
     }
 
-    public virtual double Evaluate()
-    {
-        return 0;
-    }
-    
-    protected internal bool IsZero() => IsNumber() && double.Parse(Value) == 0;
-
-    protected bool IsNumber()
-    {
-        switch (Value)
-        {
-            case "+":
-            case "-":
-            case "*":
-            case "/":
-                return false;
-            default:
-                return true;
-        }
-    }
+    public abstract double Evaluate();
 }

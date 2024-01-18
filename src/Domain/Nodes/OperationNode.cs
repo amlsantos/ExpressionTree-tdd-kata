@@ -2,11 +2,19 @@
 
 public class OperationNode : Node
 {
-    public OperationNode(string value, Node left, Node right) : base(value, left, right) { }
+    private readonly string? _operator;
+    private readonly Node? _left;
+    private readonly Node? _right;
+    public OperationNode(string _operator, Node left, Node right)
+    {
+        this._operator = _operator;
+        _left = left;
+        _right = right;
+    }
 
     public override double Evaluate()
     {
-        switch (Value)
+        switch (_operator)
         {
             case "+":
                 return Sum();
@@ -27,7 +35,9 @@ public class OperationNode : Node
     private double Multiplication() => _left.Evaluate() * _right.Evaluate();
     private double Division()
     {
-        if (_left.IsZero() || _right.IsZero())
+        if (_left.Evaluate() == 0)
+            throw new InvalidOperationException();
+        if (_right.Evaluate() == 0)
             throw new InvalidOperationException();
 
         return _left.Evaluate() / _right.Evaluate();
