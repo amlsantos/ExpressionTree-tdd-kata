@@ -2,9 +2,9 @@
 
 public class OperationNode : Node
 {
-    private readonly string? _operator;
-    protected readonly Node? Left;
-    protected readonly Node? Right;
+    private readonly string _operator;
+    protected readonly Node Left;
+    protected readonly Node Right;
     public OperationNode(string _operator, Node left, Node right)
     {
         this._operator = _operator;
