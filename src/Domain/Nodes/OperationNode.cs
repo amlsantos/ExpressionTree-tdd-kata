@@ -17,31 +17,16 @@ public class OperationNode : Node
         switch (_operator)
         {
             case "+":
-            {
                 return new AdditionNode(_operator, Left, Right).Evaluate();
-            }
             case "-":
-                return Subtraction();
+                return new SubtractionNode(_operator, Left, Right).Evaluate();
             case "*":
-                return Multiplication();
+                return new MultiplicationNode(_operator, Left, Right).Evaluate();
             case "/":
-                return Division();
+                return new DivisionNode(_operator, Left, Right).Evaluate();
 
             default:
                 return 0;
         }
-    }
-    
-    private double Sum() => Left.Evaluate() + Right.Evaluate();
-    private double Subtraction() => Left.Evaluate() - Right.Evaluate();
-    private double Multiplication() => Left.Evaluate() * Right.Evaluate();
-    private double Division()
-    {
-        if (Left.Evaluate() == 0)
-            throw new InvalidOperationException();
-        if (Right.Evaluate() == 0)
-            throw new InvalidOperationException();
-
-        return Left.Evaluate() / Right.Evaluate();
     }
 }
