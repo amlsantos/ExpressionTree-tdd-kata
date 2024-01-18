@@ -3,13 +3,13 @@
 public class OperationNode : Node
 {
     private readonly string? _operator;
-    private readonly Node? _left;
-    private readonly Node? _right;
+    protected readonly Node? Left;
+    protected readonly Node? Right;
     public OperationNode(string _operator, Node left, Node right)
     {
         this._operator = _operator;
-        _left = left;
-        _right = right;
+        Left = left;
+        Right = right;
     }
 
     public override double Evaluate()
@@ -17,7 +17,9 @@ public class OperationNode : Node
         switch (_operator)
         {
             case "+":
-                return Sum();
+            {
+                return new AdditionNode(_operator, Left, Right).Evaluate();
+            }
             case "-":
                 return Subtraction();
             case "*":
@@ -30,16 +32,16 @@ public class OperationNode : Node
         }
     }
     
-    private double Sum() => _left.Evaluate() + _right.Evaluate();
-    private double Subtraction() => _left.Evaluate() - _right.Evaluate();
-    private double Multiplication() => _left.Evaluate() * _right.Evaluate();
+    private double Sum() => Left.Evaluate() + Right.Evaluate();
+    private double Subtraction() => Left.Evaluate() - Right.Evaluate();
+    private double Multiplication() => Left.Evaluate() * Right.Evaluate();
     private double Division()
     {
-        if (_left.Evaluate() == 0)
+        if (Left.Evaluate() == 0)
             throw new InvalidOperationException();
-        if (_right.Evaluate() == 0)
+        if (Right.Evaluate() == 0)
             throw new InvalidOperationException();
 
-        return _left.Evaluate() / _right.Evaluate();
+        return Left.Evaluate() / Right.Evaluate();
     }
 }
